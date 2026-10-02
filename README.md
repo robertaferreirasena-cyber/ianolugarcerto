@@ -10,7 +10,7 @@ Página de captura de leads do Diagnóstico IA (Roberta Sena).
 O formulário é montado por `quiz.js` a partir da lista `STEPS`: 19 a 20 etapas curtas, com perguntas condicionais (números de WhatsApp, funções da equipe) e avanço automático nas de escolha única. Coleta o suficiente para a fábrica de MVP + proposta da Jornada do Lead montar a proposta e o protótipo.
 
 Envio, em ordem:
-1. **Jornada do Lead:** `POST JORNADA_ENDPOINT` (constante no topo de `quiz.js`). Fica vazio até a rota `/api/captacao` existir no app.
+1. **Jornada do Lead:** função pública do Supabase `intake_submit` (`JORNADA_ENDPOINT` + chave publicável no topo de `quiz.js`). Cria ou atualiza o lead pelo WhatsApp (origem "Página de captura", etapa "Novo lead", tag `quiz:ianolugarcerto`) e grava o briefing na fila da fábrica. O corpo enviado é `{p_source, p_slug, p_contact{name, whatsapp, email, company, consent}, p_briefing, p_honeypot}`.
 2. **Google Forms:** cópia de segurança dos campos principais.
 3. **WhatsApp da Roberta:** resumo completo, e a pessoa toca em enviar.
 

@@ -12,7 +12,10 @@
 (function () {
   'use strict';
 
-  var JORNADA_ENDPOINT = ''; // ex.: 'https://jornada.robertasena.com.br/api/captacao'
+  // Função pública do banco da Jornada do Lead (Supabase RPC intake_submit): cria/atualiza o lead
+  // e grava o briefing na fila da fábrica. A chave abaixo é a PUBLICÁVEL (feita para sites públicos).
+  var JORNADA_ENDPOINT = 'https://etefdgvcriktzubeqylp.supabase.co/rest/v1/rpc/intake_submit';
+  var JORNADA_KEY = 'sb_publishable_m5ePlRmEVqq7ayaRIhPxYw_zw2_tHD3';
   var WHATSAPP = '5551997980507';
   var QUIZ_ID = 'ianolugarcerto';
 
@@ -308,9 +311,20 @@
 
   function sendToJornada(a) {
     if (!JORNADA_ENDPOINT) return;
-    var payload = { source: 'quiz', quiz: QUIZ_ID, origem: origem(), submittedAt: new Date().toISOString(),
-      contact: { nome: a.nome, whatsapp: a.whatsapp, email: a.email || null }, consent: a.consentimento, answers: a, briefing: toBriefing(a), website: val('website') };
-    fetch(JORNADA_ENDPOINT, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload), keepalive: true }).catch(function () {});
+    var briefing = toBriefing(a);
+    briefing.notes = ['Origem: ' + origem(), briefing.notes].filter(Boolean).join(' · ');
+    var body = JSON.stringify({
+      p_source: 'quiz',
+      p_slug: QUIZ_ID,
+      p_contact: { name: a.nome, whatsapp: a.whatsapp.replace(/\D/g, ''), email: a.email || '', company: a.empresa || '', consent: a.consentimento ? 'true' : 'false' },
+      p_briefing: briefing,
+      p_honeypot: val('website')
+    });
+    var opts = { method: 'POST', headers: { 'Content-Type': 'application/json', apikey: JORNADA_KEY }, body: body };
+    // keepalive garante o envio mesmo se o WhatsApp abrir em seguida; se o navegador não aceitar, envia normal
+    try {
+      fetch(JORNADA_ENDPOINT, Object.assign({ keepalive: true }, opts)).catch(function () { return fetch(JORNADA_ENDPOINT, opts); }).catch(function () {});
+    } catch (e) { fetch(JORNADA_ENDPOINT, opts).catch(function () {}); }
   }
 
   function sendToGoogleForms(a) {
