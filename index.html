@@ -139,6 +139,36 @@
     .audience-word { position: absolute; inset: 0; display: grid; place-items: center; opacity: 0; transform: translateY(80%); transition: opacity .45s ease, transform .65s var(--ease); }
     .audience-word.active { opacity: 1; transform: none; }
     .audience-ending { display: none; }
+    /* Seção "Nós trabalhamos com": rolo de palavras ligado à rolagem */
+    .audience { height: 340svh; }
+    .audience-stage { isolation: isolate; }
+    .aud-glow { position: absolute; z-index: -1; width: 70vmax; height: 70vmax; left: 50%; top: 50%; border-radius: 50%; background: radial-gradient(closest-side, rgba(233,30,140,.16), rgba(233,30,140,0) 70%); transform: translate(-50%, -50%); pointer-events: none; will-change: transform; }
+    .aud-ghost { position: absolute; z-index: -1; left: 50%; top: 50%; white-space: nowrap; font-family: var(--display); font-style: italic; font-weight: 600; font-size: clamp(9rem, 30vw, 30rem); line-height: 1; color: transparent; -webkit-text-stroke: 1px rgba(233,30,140,.16); transform: translate(-50%, -50%); pointer-events: none; will-change: transform; user-select: none; }
+    .audience-stage.invert .aud-ghost, .audience-stage.invert .aud-glow { opacity: 0; }
+    .audience-copy h2 { font-size: clamp(2.6rem, 6vw, 6.4rem); }
+    .aud-reel { position: relative; height: 1.3em; margin: 14px auto 0; font-family: var(--display); font-style: italic; font-weight: 600; font-size: clamp(4.2rem, 12.5vw, 12rem); line-height: 1.1; letter-spacing: -.035em; color: var(--magenta); -webkit-mask-image: linear-gradient(transparent, #000 22%, #000 78%, transparent); mask-image: linear-gradient(transparent, #000 22%, #000 78%, transparent); }
+    .aud-reel .audience-word { position: absolute; inset: 0; display: grid; place-items: center; white-space: nowrap; opacity: 0; transform: none; transition: none; will-change: transform, opacity, filter; }
+    .audience-copy .eyebrow { margin-bottom: 22px; }
+    .aud-caption { min-height: 1.6em; margin: 6px auto 0; max-width: 34ch; color: var(--grafite); font-size: clamp(1rem, 1.6vw, 1.3rem); opacity: .82; transition: opacity .3s ease; }
+    .aud-caption.swap { opacity: 0; }
+    .aud-meter { display: flex; align-items: center; justify-content: center; gap: 14px; margin-top: 30px; font-family: var(--mono); font-size: 10px; letter-spacing: .12em; color: var(--grafite); }
+    .aud-meter i { position: relative; width: min(220px, 40vw); height: 2px; background: rgba(35,42,69,.14); overflow: hidden; }
+    .aud-meter b { position: absolute; inset: 0 auto 0 0; width: 0; background: var(--magenta); }
+    .aud-meter span:first-child { color: var(--magenta); }
+    .aud-you { color: var(--magenta); font-family: var(--display); font-style: italic; }
+    @media (max-width: 640px) {
+      .audience { height: 320svh; }
+      .aud-reel { font-size: clamp(3.4rem, 16vw, 5.4rem); }
+      .audience-copy h2 { font-size: clamp(2.4rem, 11vw, 3.6rem); }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .audience { height: auto; }
+      .audience-stage { position: relative; height: auto; padding: 120px 0; }
+      .aud-reel { height: auto; -webkit-mask-image: none; mask-image: none; font-size: clamp(2.6rem, 7vw, 5rem); }
+      .aud-reel .audience-word { position: static; display: block; opacity: 1 !important; transform: none !important; filter: none !important; }
+      .aud-caption, .aud-meter, .aud-ghost { display: none; }
+    }
+
     .audience-stage.invert .audience-default { display: none; }
     .audience-stage.invert .audience-ending { display: block; }
     .audience-stage .button { display: none; margin-top: 40px; }
@@ -241,6 +271,134 @@
     .application-copy span { color: var(--magenta); font-family: var(--mono); font-size: 9px; letter-spacing: .1em; text-transform: uppercase; }
     .application-copy h3 { margin: 18px 0 14px; font-family: var(--display); font-size: clamp(2.6rem,4.5vw,4.8rem); font-weight: 600; letter-spacing: -.045em; line-height: .96; }
     .application-copy p { margin: 0; color: var(--muted); font-size: .94rem; }
+
+    /* ---------- Carrossel: mini sistemas ao vivo ---------- */
+    .application-image { padding: clamp(18px, 3vw, 44px); }
+    .mini { position: relative; z-index: 1; width: 100%; max-width: 760px; font-size: clamp(8.5px, .95vw, 12px); background: #F4F5FA; color: #161C3A; border-radius: 1em; overflow: hidden; box-shadow: 0 40px 90px -30px rgba(0,0,0,.7), 0 0 0 1px rgba(255,255,255,.08); text-align: left; transition: transform .5s var(--ease); }
+    .application-card:hover .mini { transform: translateY(-4px); }
+    .mini-bar { display: flex; align-items: center; gap: .55em; padding: .8em 1.1em; background: #0D1440; color: #AAB1D6; font-family: var(--mono); font-size: .82em; }
+    .mini-bar i { width: .75em; height: .75em; border-radius: 50%; background: #2A3270; }
+    .mini-bar span { margin-left: .8em; background: #0A1130; border-radius: 99px; padding: .2em 1em; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+    .mini-bar em { margin-left: auto; font-style: normal; color: #FF5CA8; display: inline-flex; align-items: center; gap: .4em; }
+    .mini-bar em::before { content: ""; width: .55em; height: .55em; border-radius: 50%; background: #FF5CA8; animation: miniPulse 1.6s infinite; }
+    .mini-body { display: grid; grid-template-columns: 3.4em minmax(0, 1fr); height: 30em; }
+    .mini-side { background: linear-gradient(170deg, #131B4D, #0A1130); display: flex; flex-direction: column; align-items: center; gap: .7em; padding: 1em 0; color: #DFE3F7; }
+    .mini-side b { color: #FF5CA8; font-size: 1.3em; margin-bottom: .4em; }
+    .mini-side span { width: 2.2em; height: 2.2em; display: grid; place-items: center; border-radius: .6em; opacity: .7; }
+    .mini-side span.on { background: rgba(255,255,255,.12); box-shadow: inset 2px 0 0 #E91E8C; opacity: 1; }
+    .mini-h { margin: 0 0 .7em; font-weight: 700; font-size: 1.05em; display: flex; justify-content: space-between; align-items: baseline; gap: .6em; }
+    .mini-h small { font-weight: 600; color: #6B7290; font-size: .82em; }
+    .mini-av { width: 2.4em; height: 2.4em; border-radius: 50%; display: grid; place-items: center; background: #E7E9F6; color: #24307A; font-weight: 800; font-size: .85em; position: relative; flex-shrink: 0; }
+    .mini-av::after { content: ""; position: absolute; right: -.1em; bottom: -.1em; width: .9em; height: .9em; border-radius: 50%; border: 2px solid #fff; }
+    .mini-av.wa::after { background: #25D366; } .mini-av.ig::after { background: linear-gradient(45deg,#F9A03F,#D62976 55%,#7A3BD1); }
+    .mini em[class^="t-"] { font-style: normal; font-size: .72em; font-weight: 800; border-radius: 99px; padding: .2em .6em; }
+    .t-live { background: #25D366; color: #fff; } .t-alert { background: #C2453A; color: #fff; } .t-ok { background: #E4F4EE; color: #1F8A6A; }
+
+    /* 1 · atendimento */
+    .mini-atend .mini-body > :not(nav) { min-height: 0; }
+    .mini-atend .mini-body { grid-template-columns: 3.4em 15.5em minmax(0,1fr) 11.5em; }
+    .ma-list, .ma-sum { background: #fff; padding: .9em; border-right: 1px solid #E3E6F0; overflow: hidden; }
+    .ma-sum { border-right: 0; border-left: 1px solid #E3E6F0; }
+    .ma-row { display: flex; align-items: center; gap: .6em; padding: .55em .4em; border-radius: .6em; }
+    .ma-row span:nth-child(2) { flex: 1; min-width: 0; display: grid; }
+    .ma-row b { font-size: .9em; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; } .ma-row small { color: #6B7290; font-size: .78em; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .ma-row.on { background: #FDF0F7; box-shadow: inset 3px 0 0 #E91E8C; }
+    .ma-thread { display: flex; flex-direction: column; padding: .9em; background: #F7F3F6; min-width: 0; }
+    .ma-mode { background: #ECE9FB; color: #5B4BC4 !important; border-radius: 99px; padding: .1em .7em; }
+    .ma-msgs { display: flex; flex-direction: column; gap: .5em; overflow: hidden; }
+    .ma-msgs p { margin: 0; max-width: 84%; padding: .55em .8em; border-radius: .8em; font-size: .9em; line-height: 1.35; box-shadow: 0 1px 1px rgba(0,0,0,.05); }
+    .ma-msgs .c { align-self: flex-start; background: #fff; border-top-left-radius: .2em; }
+    .ma-msgs .a { align-self: flex-end; background: #ECE9FB; border-top-right-radius: .2em; }
+    .ma-msgs .a.ok { background: #E4F4EE; }
+    .ma-score { display: grid; gap: .3em; margin-bottom: .6em; } .ma-score b { font-size: 1.8em; }
+    .ma-score i, .ms-kpis i, .mc-voice i { display: block; height: .4em; background: #ECEEF6; border-radius: 99px; overflow: hidden; }
+    .ma-score u, .ms-kpis u, .mc-voice u { display: block; height: 100%; width: 100%; background: #E91E8C; border-radius: 99px; text-decoration: none; }
+    .ma-f { display: grid; padding: .45em 0; border-bottom: 1px solid #EEF0F6; } .ma-f small { color: #6B7290; font-size: .75em; } .ma-f b { font-size: .88em; }
+    .ma-f.hl b { color: #B0126A; }
+
+    /* 2 · vendas */
+    .ms-main { position: relative; padding: 1em; min-width: 0; overflow: hidden; }
+    .ms-kpis { display: grid; grid-template-columns: repeat(3, minmax(0,1fr)); gap: .7em; margin-bottom: .9em; }
+    .ms-kpis > div { background: #fff; border: 1px solid #E3E6F0; border-radius: .8em; padding: .6em .8em; display: grid; gap: .2em; }
+    .ms-kpis small { color: #6B7290; font-size: .78em; } .ms-kpis b { font-size: 1.3em; } .ms-kpis u { width: 32%; }
+    .ms-board { position: relative; display: grid; grid-template-columns: repeat(4, minmax(0,1fr)); gap: .6em; }
+    .ms-col { background: #ECEEF6; border-radius: .8em; padding: .6em; min-height: 17em; display: flex; flex-direction: column; gap: .5em; }
+    .ms-col p { margin: 0 0 .2em; font-weight: 800; font-size: .85em; display: flex; justify-content: space-between; } .ms-col p span { color: #6B7290; }
+    .ms-card, .ms-move { background: #fff; border: 1px solid #E3E6F0; border-radius: .7em; padding: .55em .65em; display: grid; gap: .1em; }
+    .ms-card b, .ms-move b { font-size: .88em; } .ms-card small, .ms-move small { color: #6B7290; font-size: .74em; }
+    .ms-card.won { border-color: #9FD9C4; background: #F2FBF7; }
+    .ms-move { position: absolute; left: .6em; top: 8.6em; width: calc(25% - 1.65em); border-color: #E91E8C; box-shadow: 0 .8em 1.6em -.6em rgba(233,30,140,.45); }
+    .ms-toast { position: absolute; right: 1em; bottom: 1em; background: #0A1130; color: #fff; border-radius: .7em; padding: .6em .9em; font-weight: 700; font-size: .85em; opacity: 0; }
+
+    /* 3 · conteúdo */
+    .mini-content .mini-body { grid-template-columns: 3.4em minmax(0,1fr) 14em; }
+    .mc-cal { padding: 1em; min-width: 0; }
+    .mc-week { display: grid; grid-template-columns: repeat(7, minmax(0,1fr)); gap: .45em; }
+    .mc-week > div { background: #fff; border: 1px solid #E3E6F0; border-radius: .7em; padding: .5em .4em; min-height: 12em; display: flex; flex-direction: column; gap: .4em; }
+    .mc-week small { color: #6B7290; font-weight: 700; font-size: .78em; }
+    .mc-week span { border-radius: .45em; padding: .4em .45em; font-size: .72em; font-weight: 700; line-height: 1.25; }
+    .k-reel { background: #FDE7F2; color: #B0126A; } .k-story { background: #ECE9FB; color: #5B4BC4; } .k-car { background: #E4F4EE; color: #1F8A6A; } .k-live { background: #0A1130; color: #fff; } .k-off { color: #9AA0B8; }
+    .mc-voice { margin-top: .9em; display: grid; grid-template-columns: auto minmax(0,1fr) auto; gap: .8em; align-items: center; font-size: .85em; } .mc-voice small { color: #6B7290; } .mc-voice u { width: 96%; }
+    .mc-approve { background: #fff; border-left: 1px solid #E3E6F0; padding: 1em; display: flex; flex-direction: column; gap: .8em; }
+    .mc-doc { border: 1px solid #E3E6F0; border-radius: .8em; padding: .8em; display: grid; gap: .4em; }
+    .mc-doc small, .mc-next small { color: #6B7290; font-size: .76em; } .mc-doc b { font-size: .95em; line-height: 1.3; } .mc-doc p { margin: 0; color: #6B7290; font-size: .8em; line-height: 1.4; }
+    .mc-state { position: relative; height: 2.2em; margin-top: .3em; }
+    .mc-state span { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; border-radius: .6em; font-size: .8em; font-weight: 800; }
+    .mc-state .wait { background: #FBF1DF; color: #9A6514; opacity: 0; } .mc-state .done { background: #1F8A6A; color: #fff; }
+    .mc-next { display: grid; gap: .2em; padding: .7em .8em; background: #F6F7FB; border-radius: .7em; } .mc-next b { font-size: .88em; }
+
+    /* 4 · organização */
+    .mini-org .mini-body { height: 32em; }
+    .mo-main { padding: 1em; min-width: 0; display: flex; flex-direction: column; gap: .8em; }
+    .mo-hello { background: linear-gradient(135deg,#131B4D,#0A1130); color: #fff; border-radius: .9em; padding: .9em 1.1em; display: grid; gap: .2em; } .mo-hello b { font-size: 1.3em; } .mo-hello small { color: #C3C8EA; }
+    .mo-grid { display: grid; grid-template-columns: 1fr 1fr; gap: .8em; }
+    .mo-card { background: #fff; border: 1px solid #E3E6F0; border-radius: .9em; padding: .9em; }
+    .mo-card label { display: flex; align-items: center; gap: .6em; padding: .45em 0; border-bottom: 1px solid #EEF0F6; font-size: .88em; color: #9AA0B8; text-decoration: line-through; }
+    .mo-card label i { width: 1.1em; height: 1.1em; border-radius: .3em; border: 2px solid #E91E8C; background: #E91E8C; box-shadow: inset 0 0 0 .18em #fff; flex-shrink: 0; }
+    .mo-card label.todo { color: #161C3A; text-decoration: none; } .mo-card label.todo i { background: #fff; border-color: #C9CDE3; box-shadow: none; }
+    .mo-ev { display: grid; grid-template-columns: 3.6em minmax(0,1fr); padding: .45em 0 .45em .6em; border-left: 3px solid #E91E8C; margin-bottom: .35em; font-size: .86em; } .mo-ev time { font-weight: 800; }
+    .mo-ev:nth-child(3) { border-color: #7A5CD6; } .mo-ev:nth-child(5) { border-color: #1F8A6A; }
+    .mo-kpis { display: grid; grid-template-columns: repeat(3, minmax(0,1fr)); gap: .8em; } .mo-kpis div { background: #fff; border: 1px solid #E3E6F0; border-radius: .9em; padding: .7em .9em; display: grid; gap: .15em; } .mo-kpis small { color: #6B7290; font-size: .78em; } .mo-kpis b { font-size: 1.25em; }
+    .is-live .mo-kpis div { animation: miniIn .45s var(--ease) both; } .is-live .mo-kpis div:nth-child(2) { animation-delay: .15s; } .is-live .mo-kpis div:nth-child(3) { animation-delay: .3s; }
+    .mo-alerts { display: flex; flex-wrap: wrap; gap: .5em; } .mo-alerts span { border-radius: 99px; padding: .35em .8em; font-size: .8em; font-weight: 800; }
+    .mo-alerts .a1 { background: #FDE7F2; color: #B0126A; } .mo-alerts .a2 { background: #FBF1DF; color: #9A6514; } .mo-alerts .a3 { background: #E4F4EE; color: #1F8A6A; }
+
+    /* animações: só no slide ativo (.is-live); sem JS, o estado final aparece parado */
+    @keyframes miniIn { from { opacity: 0; transform: translateY(.6em) scale(.98); } to { opacity: 1; transform: none; } }
+    @keyframes miniPulse { 50% { opacity: .35; } }
+    @keyframes miniGrow { from { width: 0; } }
+    @keyframes miniCheck { from { color: #161C3A; text-decoration-color: transparent; } to { color: #9AA0B8; text-decoration-color: currentColor; } }
+    @keyframes miniBox { from { background: #fff; border-color: #C9CDE3; box-shadow: none; } }
+    @keyframes msMove { 0%, 14% { left: .6em; top: 8.6em; } 30%, 44% { left: calc(25% + .3em); top: 3.4em; } 60%, 72% { left: calc(50% + .15em); top: 8.6em; } 88%, 100% { left: calc(75% + 0em); top: 8.6em; border-color: #9FD9C4; background: #F2FBF7; } }
+    @keyframes toast { 0% { opacity: 0; transform: translateY(.5em); } 8%, 80% { opacity: 1; transform: none; } 100% { opacity: 0; } }
+    @keyframes swapOut { 0%, 55% { opacity: 1; } 62%, 100% { opacity: 0; } }
+    @keyframes swapIn { 0%, 55% { opacity: 0; transform: scale(.96); } 64%, 100% { opacity: 1; transform: none; } }
+    .is-live .ma-msgs p, .is-live .ma-f { animation: miniIn .45s var(--ease) both; animation-delay: calc(var(--d) * .9s + .3s); }
+    .is-live .ma-score u { animation: miniGrow 5.4s linear both .3s; }
+    .is-live .ms-move { animation: msMove 6.2s var(--ease) both .2s; }
+    .is-live .ms-toast.t1 { animation: toast 1.6s both 1.3s; } .is-live .ms-toast.t2 { animation: toast 1.8s both 3.3s; } .is-live .ms-toast.t3 { animation: toast 2.4s both 5.2s; }
+    .is-live .ms-kpis u, .is-live .mc-voice u { animation: miniGrow 1.6s var(--ease) both .3s; }
+    .is-live .mc-week span[style] { animation: miniIn .4s var(--ease) both; animation-delay: calc(var(--d) * 1s + .3s); }
+    .is-live .mc-state .wait { animation: swapOut 6.2s both; } .is-live .mc-state .done { animation: swapIn 6.2s both; }
+    .is-live .mo-card label[style] { animation: miniCheck .35s ease both; animation-delay: var(--d); } .is-live .mo-card label[style] i { animation: miniBox .35s ease both; animation-delay: var(--d); }
+    .is-live .mo-alerts span { animation: miniIn .4s var(--ease) both; } .is-live .mo-alerts .a2 { animation-delay: .5s; } .is-live .mo-alerts .a3 { animation-delay: 3.2s; }
+    .carousel-dot { position: relative; overflow: hidden; }
+    .carousel-dot .dot-fill { position: absolute; inset: 0; width: 0; background: var(--magenta); opacity: .55; }
+    .applications-carousel.autoplay .carousel-dot[aria-current="true"] .dot-fill { animation: miniGrow var(--auto, 7s) linear forwards; width: 100%; }
+    .applications-carousel.paused .carousel-dot .dot-fill { animation-play-state: paused; }
+    @media (max-width: 960px) {
+      .mini { font-size: clamp(8px, 1.55vw, 11px); }
+    }
+    @media (max-width: 640px) {
+      .mini { font-size: clamp(7.5px, 2.25vw, 10px); }
+      .mini-body { height: 31em; }
+      .mini-atend .mini-body { grid-template-columns: 3.4em minmax(0,1fr) 11em; } .ma-list { display: none; }
+      .mini-content .mini-body { grid-template-columns: 3.4em minmax(0,1fr); } .mc-approve { display: none; }
+      .mc-week { grid-template-columns: repeat(4, minmax(0,1fr)); } .mc-week > div { min-height: 7em; } .mc-week > div:nth-child(n+5) { display: none; }
+      .mo-grid { grid-template-columns: 1fr; } .mo-grid .mo-card:nth-child(2) { display: none; }
+      .ms-board { grid-template-columns: repeat(4, minmax(0,1fr)); } .ms-kpis div:nth-child(3) { display: none; } .ms-kpis { grid-template-columns: 1fr 1fr; }
+    }
+    @media (prefers-reduced-motion: reduce) { .is-live * { animation: none !important; } }
     .applications-controls { margin-top: 20px; display: grid; grid-template-columns: auto 1fr auto; gap: 24px; align-items: center; }
     .applications-arrows { display: flex; gap: 9px; }
     .carousel-arrow { width: 50px; height: 50px; padding: 0; display: grid; place-items: center; border: 1px solid var(--line); border-radius: 50%; background: var(--surface); color: var(--text); font-family: var(--mono); font-size: 18px; }
@@ -569,14 +727,28 @@
 
     <section class="audience" id="audience" aria-label="Negócios atendidos">
       <div class="audience-stage" id="audienceStage">
+        <div class="aud-glow" id="audGlow" aria-hidden="true"></div>
+        <div class="aud-ghost" id="audGhost" aria-hidden="true">lojas</div>
         <div class="audience-copy">
-          <div class="audience-default"><p class="eyebrow">A operação muda. O critério não.</p><h2>Nós trabalhamos com</h2><div class="audience-word-wrap" aria-live="polite"><span class="audience-word active">lojas.</span><span class="audience-word">mentorias.</span><span class="audience-word">clínicas.</span><span class="audience-word">serviços.</span><span class="audience-word">equipes.</span><span class="audience-word">negócios reais.</span></div></div>
-          <div class="audience-ending"><p class="eyebrow">Sem IA solta. Sem ferramenta por moda.</p><h2>Nós trabalhamos com <span style="color:var(--magenta);font-family:var(--display);font-style:italic">você.</span></h2></div>
+          <div class="audience-default">
+            <p class="eyebrow">A operação muda. O critério não.</p>
+            <h2>Nós trabalhamos com</h2>
+            <div class="aud-reel" aria-live="polite">
+              <span class="audience-word active" data-cap="Pedidos, catálogo e pós-venda direto no WhatsApp.">lojas.</span>
+              <span class="audience-word" data-cap="Da captação à turma, sem perder ninguém no caminho.">mentorias.</span>
+              <span class="audience-word" data-cap="Agenda, avaliações e retornos no tempo certo.">clínicas.</span>
+              <span class="audience-word" data-cap="Do orçamento ao fechamento, com cada retorno lembrado.">serviços.</span>
+              <span class="audience-word" data-cap="Cada pessoa com o contexto que precisa para agir.">equipes.</span>
+              <span class="audience-word" data-cap="Operações que já rodam e querem crescer sem pesar na dona.">negócios reais.</span>
+            </div>
+            <p class="aud-caption" id="audCaption">Pedidos, catálogo e pós-venda direto no WhatsApp.</p>
+            <div class="aud-meter" aria-hidden="true"><span id="audCount">01</span><i><b id="audBar"></b></i><span>06</span></div>
+          </div>
+          <div class="audience-ending"><p class="eyebrow">Sem IA solta. Sem ferramenta por moda.</p><h2>Nós trabalhamos com <span class="aud-you">você.</span></h2></div>
           <button class="button primary open-form" type="button">Começar pelo diagnóstico <span class="arrow">→</span></button>
         </div>
       </div>
     </section>
-
     <div class="marquee" aria-label="Frentes de atuação"><div class="marquee-track"><span>Atendimento</span><span>Vendas</span><span>Conteúdo</span><span>Organização</span><span>Agentes de IA</span><span>CRM sob medida</span><span>Integrações</span><span>Atendimento</span><span>Vendas</span><span>Conteúdo</span><span>Organização</span><span>Agentes de IA</span><span>CRM sob medida</span><span>Integrações</span></div></div>
 
     <section class="section diagnosis" id="diagnostico">
@@ -616,10 +788,10 @@
         <div class="applications-carousel reveal" id="applicationsCarousel">
           <div class="applications-viewport" id="applicationsViewport" tabindex="0" role="region" aria-roledescription="carrossel" aria-label="Aplicações da IA no negócio">
             <div class="applications-track" id="applicationsTrack">
-              <article class="application-card" role="group" aria-roledescription="slide" aria-label="1 de 4"><figure class="application-image" aria-label="Fluxo visual de atendimento com conversas organizadas entre triagem, contexto e equipe humana"><div class="visual-shell"><div class="visual-top"><span class="visual-status">Atendimento ativo</span><span>Fluxo 01</span></div><div class="visual-chat-flow"><div class="visual-bubbles"><div class="visual-bubble" style="--w:82%"></div><div class="visual-bubble" style="--w:68%"></div><div class="visual-bubble" style="--w:74%"></div><div class="visual-bubble" style="--w:58%"></div></div><div class="visual-route"><span>Triagem</span><span>Contexto</span><span>Humano</span></div></div></div></figure><div class="application-copy"><span>01 · Atendimento</span><h3>Responder sem perder contexto.</h3><p>Triagem, dúvidas frequentes, encaminhamento e organização das conversas.</p></div></article>
-              <article class="application-card" role="group" aria-roledescription="slide" aria-label="2 de 4" aria-hidden="true"><figure class="application-image" aria-label="Pipeline visual de vendas com oportunidades avançando por quatro etapas"><div class="visual-shell"><div class="visual-top"><span class="visual-status">Oportunidades</span><span>Fluxo 02</span></div><div class="visual-pipeline"><div class="visual-lane"><b>Entrada</b><div class="visual-lead"></div><div class="visual-lead"></div><div class="visual-lead"></div></div><div class="visual-lane"><b>Qualificar</b><div class="visual-lead"></div><div class="visual-lead"></div></div><div class="visual-lane"><b>Retornar</b><div class="visual-lead"></div><div class="visual-lead"></div></div><div class="visual-lane"><b>Avançar</b><div class="visual-lead"></div></div></div></div></figure><div class="application-copy"><span>02 · Vendas</span><h3>Conduzir cada oportunidade.</h3><p>Qualificação, retorno, próximos passos e visibilidade sobre o que está em aberto.</p></div></article>
-              <article class="application-card" role="group" aria-roledescription="slide" aria-label="3 de 4" aria-hidden="true"><figure class="application-image" aria-label="Planejamento visual de conteúdo com roteiro e calendário editorial"><div class="visual-shell"><div class="visual-top"><span class="visual-status">Conteúdo em produção</span><span>Fluxo 03</span></div><div class="visual-editorial"><div class="visual-script"><strong>Voz da marca</strong><span></span><span></span><span></span></div><div class="visual-calendar"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div></div></div></figure><div class="application-copy"><span>03 · Conteúdo</span><h3>Produzir sem apagar a voz.</h3><p>Pesquisa, planejamento e adaptação de conteúdo com direção da marca.</p></div></article>
-              <article class="application-card" role="group" aria-roledescription="slide" aria-label="4 de 4" aria-hidden="true"><figure class="application-image" aria-label="Mapa visual que reúne demandas, documentos e próximas etapas em um fluxo"><div class="visual-shell"><div class="visual-top"><span class="visual-status">Operação organizada</span><span>Fluxo 04</span></div><div class="visual-map"><div class="visual-node">Demandas</div><div class="visual-node">Fluxo central</div><div class="visual-node">Próximas etapas</div></div></div></figure><div class="application-copy"><span>04 · Organização</span><h3>Ver o que precisa acontecer.</h3><p>Demandas, documentos e etapas reunidos para reduzir retrabalho.</p></div></article>
+              <article class="application-card" role="group" aria-roledescription="slide" aria-label="1 de 4"><figure class="application-image" aria-label="Fluxo visual de atendimento com conversas organizadas entre triagem, contexto e equipe humana"><div class="mini mini-atend"><div class="mini-bar"><i></i><i></i><i></i><span>central.seunegocio.com.br/atendimento</span><em>ao vivo</em></div><div class="mini-body"><nav class="mini-side" aria-hidden="true"><b>✦</b><span class="on">✉</span><span>◎</span><span>▦</span><span>☀</span></nav><div class="ma-list"><p class="mini-h">Conversas <small>WhatsApp + Direct</small></p><div class="ma-row on"><span class="mini-av wa">JR</span><span><b>Juliana Reis</b><small>Quinta às 14h</small></span><em class="t-live">ao vivo</em></div><div class="ma-row"><span class="mini-av ig">MC</span><span><b>Marina Costa</b><small>Quero saber o valor…</small></span><em class="t-alert">humano</em></div><div class="ma-row"><span class="mini-av wa">PL</span><span><b>Paulo Lima</b><small>🤖 Te envio a proposta</small></span></div><div class="ma-row"><span class="mini-av ig">BN</span><span><b>Bia Nunes</b><small>🤖 Agendado ✓</small></span><em class="t-ok">ok</em></div></div><div class="ma-thread"><p class="mini-h">Juliana Reis <small class="ma-mode">IA atendendo</small></p><div class="ma-msgs"><p class="c" style="--d:0">Oi! Quanto custa a avaliação? 😊</p><p class="a" style="--d:1">Oi, Juliana! A avaliação é gratuita. Posso te fazer 2 perguntas rápidas?</p><p class="c" style="--d:2">Pode sim!</p><p class="a" style="--d:3">Tenho quinta às 14h ou sexta às 10h30. Qual fica melhor?</p><p class="c" style="--d:4">Quinta às 14h</p><p class="a ok" style="--d:5">Prontinho! ✅ Avaliação agendada. Te lembro um dia antes.</p></div></div><aside class="ma-sum"><p class="mini-h">✦ Resumo da IA</p><div class="ma-score"><b>100%</b><i><u></u></i></div><div class="ma-f" style="--d:1"><small>Interesse</small><b>Avaliação</b></div><div class="ma-f" style="--d:2.2"><small>Momento</small><b>Pronta para agendar</b></div><div class="ma-f" style="--d:4.2"><small>Agenda</small><b>Qui · 14h</b></div><div class="ma-f hl" style="--d:5.2"><small>Próximo passo</small><b>Lembrete automático</b></div></aside></div></div></figure><div class="application-copy"><span>01 · Atendimento</span><h3>Responder sem perder contexto.</h3><p>Triagem, dúvidas frequentes, encaminhamento e organização das conversas.</p></div></article>
+              <article class="application-card" role="group" aria-roledescription="slide" aria-label="2 de 4" aria-hidden="true"><figure class="application-image" aria-label="Pipeline visual de vendas com oportunidades avançando por quatro etapas"><div class="mini mini-sales"><div class="mini-bar"><i></i><i></i><i></i><span>central.seunegocio.com.br/funil</span><em>ao vivo</em></div><div class="mini-body"><nav class="mini-side" aria-hidden="true"><b>✦</b><span>✉</span><span class="on">◎</span><span>▦</span><span>☀</span></nav><div class="ms-main"><div class="ms-kpis"><div><small>Em aberto</small><b>R$ 48,2 mil</b></div><div><small>Conversão</small><b>32%</b><i><u></u></i></div><div><small>Retornos hoje</small><b>5</b></div></div><div class="ms-board"><div class="ms-col"><p>Entrada <span>3</span></p><div class="ms-card"><b>Carla M.</b><small>Consultoria · R$ 3.200</small></div><div class="ms-card"><b>Rafael T.</b><small>Mentoria · R$ 4.800</small></div></div><div class="ms-col"><p>Qualificar <span>2</span></p><div class="ms-card"><b>Lia S.</b><small>Curso · R$ 1.900</small></div></div><div class="ms-col"><p>Proposta <span>2</span></p><div class="ms-card"><b>Otávio P.</b><small>Projeto · R$ 12 mil</small></div></div><div class="ms-col"><p>Fechado <span>4</span></p><div class="ms-card won"><b>Ana B.</b><small>Mentoria · R$ 4.800</small></div></div><div class="ms-move"><b>Marina C.</b><small>Mentoria · R$ 4.800</small></div></div><div class="ms-toast t1">◎ Qualificada pela IA</div><div class="ms-toast t2">✉ Proposta enviada · retorno em 2 dias</div><div class="ms-toast t3">✓ Fechado · R$ 4.800</div></div></div></div></figure><div class="application-copy"><span>02 · Vendas</span><h3>Conduzir cada oportunidade.</h3><p>Qualificação, retorno, próximos passos e visibilidade sobre o que está em aberto.</p></div></article>
+              <article class="application-card" role="group" aria-roledescription="slide" aria-label="3 de 4" aria-hidden="true"><figure class="application-image" aria-label="Planejamento visual de conteúdo com roteiro e calendário editorial"><div class="mini mini-content"><div class="mini-bar"><i></i><i></i><i></i><span>central.seunegocio.com.br/conteudo</span><em>ao vivo</em></div><div class="mini-body"><nav class="mini-side" aria-hidden="true"><b>✦</b><span>✉</span><span>◎</span><span class="on">▦</span><span>☀</span></nav><div class="mc-cal"><p class="mini-h">Semana de conteúdo <small>@suamarca</small></p><div class="mc-week"><div><small>Seg</small><span class="k-reel" style="--d:0">Reels · bastidores</span></div><div><small>Ter</small><span class="k-story" style="--d:.4">Stories · caixinha</span></div><div><small>Qua</small><span class="k-car" style="--d:.8">Carrossel · 3 erros</span></div><div><small>Qui</small><span class="k-live" style="--d:1.2">Live 20h</span><span class="k-story" style="--d:1.4">Story lembrete</span></div><div><small>Sex</small><span class="k-reel" style="--d:1.8">Reels · depoimento</span></div><div><small>Sáb</small><span class="k-story" style="--d:2.2">Stories · rotina</span></div><div><small>Dom</small><span class="k-off">descanso</span></div></div><div class="mc-voice"><small>Voz da marca</small><i><u></u></i><b>96% alinhado</b></div></div><aside class="mc-approve"><p class="mini-h">Pede tua aprovação</p><div class="mc-doc"><small>Roteiro · Reels</small><b>3 erros que fazem você perder clientes no WhatsApp</b><p>Gancho, 3 pontos e chamada para o diagnóstico, no seu tom.</p><div class="mc-state"><span class="wait">Aguardando você</span><span class="done">✓ Aprovado · agendado para sex 18h</span></div></div><div class="mc-next"><small>Próximos</small><b>2 legendas · 1 capa</b></div></aside></div></div></figure><div class="application-copy"><span>03 · Conteúdo</span><h3>Produzir sem apagar a voz.</h3><p>Pesquisa, planejamento e adaptação de conteúdo com direção da marca.</p></div></article>
+              <article class="application-card" role="group" aria-roledescription="slide" aria-label="4 de 4" aria-hidden="true"><figure class="application-image" aria-label="Mapa visual que reúne demandas, documentos e próximas etapas em um fluxo"><div class="mini mini-org"><div class="mini-bar"><i></i><i></i><i></i><span>central.seunegocio.com.br/painel</span><em>ao vivo</em></div><div class="mini-body"><nav class="mini-side" aria-hidden="true"><b>✦</b><span>✉</span><span>◎</span><span>▦</span><span class="on">☀</span></nav><div class="mo-main"><div class="mo-hello"><b>Bom dia ☀</b><small>Tudo o que pede atenção hoje, em uma tela.</small></div><div class="mo-grid"><div class="mo-card"><p class="mini-h">Tarefas</p><label style="--d:.6"><i></i>Enviar contrato para Otávio</label><label style="--d:1.6"><i></i>Aprovar roteiro de sexta</label><label style="--d:2.6"><i></i>Retornar 3 orçamentos</label><label class="todo"><i></i>Revisar números da semana</label></div><div class="mo-card"><p class="mini-h">Agenda</p><div class="mo-ev"><time>09:00</time><span>Gravação · 3 Reels</span></div><div class="mo-ev"><time>11:00</time><span>Call com Otávio</span></div><div class="mo-ev"><time>14:00</time><span>Avaliação · Juliana</span></div><div class="mo-ev"><time>17:30</time><span>Bloco livre</span></div></div></div><div class="mo-kpis"><div><small>Vendas na semana</small><b>R$ 18,4 mil</b></div><div><small>Contatos novos</small><b>47</b></div><div><small>Tempo de resposta</small><b>2 min</b></div></div><div class="mo-alerts"><span class="a1">2 decisões pedem você</span><span class="a2">Contrato vence sexta</span><span class="a3">Nenhum conflito na agenda ✓</span></div></div></div></div></figure><div class="application-copy"><span>04 · Organização</span><h3>Ver o que precisa acontecer.</h3><p>Demandas, documentos e etapas reunidos para reduzir retrabalho.</p></div></article>
             </div>
           </div>
           <div class="applications-controls"><div class="applications-arrows"><button class="carousel-arrow" id="applicationsPrev" type="button" aria-label="Aplicação anterior">←</button><button class="carousel-arrow" id="applicationsNext" type="button" aria-label="Próxima aplicação">→</button></div><div class="applications-dots" id="applicationsDots" role="tablist" aria-label="Escolher aplicação"></div><div class="applications-counter" aria-hidden="true"><strong id="applicationsCurrent">01</strong> / <span id="applicationsTotal">04</span></div></div>
@@ -717,13 +889,36 @@
       var audience = document.getElementById('audience');
       var audienceStage = document.getElementById('audienceStage');
       var words = Array.prototype.slice.call(document.querySelectorAll('.audience-word'));
+      var audCaption = document.getElementById('audCaption'), audCount = document.getElementById('audCount'), audBar = document.getElementById('audBar');
+      var audGhost = document.getElementById('audGhost'), audGlow = document.getElementById('audGlow'), audActive = -1;
       function updateAudience() {
+        if (reduced) return;
         var rect = audience.getBoundingClientRect();
         var travel = Math.max(1, audience.offsetHeight - audienceStage.offsetHeight);
         var p = Math.min(1, Math.max(0, -rect.top / travel));
-        var step = Math.min(words.length, Math.floor(p * (words.length + 1)));
-        var ending = step === words.length;
-        words.forEach(function (word, i) { word.classList.toggle('active', !ending && i === step); });
+        var n = words.length, endAt = .86;
+        var raw = Math.min(1, p / endAt) * (n - 1), base = Math.floor(raw), frac = raw - base;
+        var t = frac < .3 ? 0 : frac > .7 ? 1 : (frac - .3) / .4; t = t * t * (3 - 2 * t);
+        var f = Math.min(n - 1, base + t);
+        var ending = p > endAt + .04;
+        words.forEach(function (word, i) {
+          var d = i - f, a = Math.abs(d);
+          word.style.transform = 'translateY(' + (d * 86) + '%) scale(' + Math.max(.55, 1 - a * .28) + ')';
+          word.style.opacity = String(Math.max(0, 1 - a * .78));
+          word.style.filter = 'blur(' + Math.min(8, a * 5).toFixed(2) + 'px)';
+        });
+        var active = Math.min(n - 1, Math.round(f));
+        if (active !== audActive) {
+          audActive = active;
+          var w = words[active];
+          audCaption.classList.add('swap');
+          window.setTimeout(function () { audCaption.textContent = w.getAttribute('data-cap'); audCaption.classList.remove('swap'); }, 140);
+          audCount.textContent = String(active + 1).padStart(2, '0');
+          audGhost.textContent = w.textContent.replace('.', '');
+        }
+        audBar.style.width = (f / (n - 1) * 100) + '%';
+        audGhost.style.transform = 'translate(calc(-50% + ' + ((.5 - p) * 30).toFixed(2) + 'vw), -50%)';
+        audGlow.style.transform = 'translate(calc(-50% + ' + (Math.sin(p * Math.PI * 2) * 18).toFixed(2) + 'vw), calc(-50% + ' + ((p - .5) * 20).toFixed(2) + 'vh))';
         audienceStage.classList.toggle('invert', ending);
       }
 
@@ -799,8 +994,11 @@
         applicationSlides.forEach(function (slide,i) { slide.setAttribute('aria-hidden',String(i !== applicationIndex)); });
         applicationDots.forEach(function (dot,i) { dot.setAttribute('aria-current',String(i === applicationIndex)); dot.setAttribute('aria-selected',String(i === applicationIndex)); dot.tabIndex = i === applicationIndex ? 0 : -1; });
         if (announce !== false) applicationsLive.textContent = 'Aplicação ' + (applicationIndex + 1) + ' de ' + applicationSlides.length;
+        applicationSlides.forEach(function (slide, i) { slide.classList.remove('is-live'); if (i === applicationIndex) { void slide.offsetWidth; slide.classList.add('is-live'); } });
+        applicationDots.forEach(function (dot) { var f = dot.querySelector('.dot-fill'); if (f) { f.style.animation = 'none'; void f.offsetWidth; f.style.animation = ''; } });
+        if (typeof scheduleAuto === 'function') scheduleAuto();
       }
-      applicationSlides.forEach(function (_,index) { var dot=document.createElement('button');dot.type='button';dot.className='carousel-dot';dot.setAttribute('role','tab');dot.setAttribute('aria-label','Ir para a aplicação '+(index+1));dot.addEventListener('click',function(){showApplication(index);});applicationsDots.appendChild(dot);applicationDots.push(dot); });
+      applicationSlides.forEach(function (_,index) { var dot=document.createElement('button');dot.type='button';dot.className='carousel-dot';dot.innerHTML='<span class="dot-fill"></span>';dot.setAttribute('role','tab');dot.setAttribute('aria-label','Ir para a aplicação '+(index+1));dot.addEventListener('click',function(){showApplication(index);});applicationsDots.appendChild(dot);applicationDots.push(dot); });
       document.getElementById('applicationsPrev').addEventListener('click',function(){showApplication(applicationIndex-1);});
       document.getElementById('applicationsNext').addEventListener('click',function(){showApplication(applicationIndex+1);});
       applicationsViewport.addEventListener('keydown',function(event){if(event.key==='ArrowLeft'){event.preventDefault();showApplication(applicationIndex-1);}if(event.key==='ArrowRight'){event.preventDefault();showApplication(applicationIndex+1);}if(event.key==='Home'){event.preventDefault();showApplication(0);}if(event.key==='End'){event.preventDefault();showApplication(applicationSlides.length-1);}});
@@ -809,6 +1007,25 @@
       function finishDrag(){if(!isDragging)return;isDragging=false;applicationsViewport.classList.remove('dragging');var threshold=applicationsViewport.clientWidth*.16;if(dragDeltaX<-threshold)showApplication(applicationIndex+1);else if(dragDeltaX>threshold)showApplication(applicationIndex-1);else showApplication(applicationIndex,false);}
       applicationsViewport.addEventListener('pointerup',finishDrag);applicationsViewport.addEventListener('pointercancel',finishDrag);showApplication(0,false);
 
+
+      var applicationsCarousel = document.getElementById('applicationsCarousel'), AUTO_MS = 7000, autoTimer = null, autoPaused = false, autoVisible = false;
+      applicationsCarousel.style.setProperty('--auto', AUTO_MS + 'ms');
+      function scheduleAuto() {
+        window.clearTimeout(autoTimer);
+        if (reduced || autoPaused || !autoVisible) return;
+        autoTimer = window.setTimeout(function () { showApplication(applicationIndex + 1, false); }, AUTO_MS);
+      }
+      function setPaused(v) { autoPaused = v; applicationsCarousel.classList.toggle('paused', v); if (v) window.clearTimeout(autoTimer); else scheduleAuto(); }
+      if (!reduced) applicationsCarousel.classList.add('autoplay');
+      applicationsCarousel.addEventListener('mouseenter', function () { setPaused(true); });
+      applicationsCarousel.addEventListener('mouseleave', function () { setPaused(false); });
+      applicationsCarousel.addEventListener('focusin', function () { setPaused(true); });
+      applicationsCarousel.addEventListener('focusout', function () { setPaused(false); });
+      applicationsViewport.addEventListener('pointerdown', function () { setPaused(true); });
+      document.addEventListener('visibilitychange', function () { if (document.hidden) window.clearTimeout(autoTimer); else scheduleAuto(); });
+      if ('IntersectionObserver' in window) {
+        new IntersectionObserver(function (entries) { autoVisible = entries[0].isIntersecting; if (autoVisible) showApplication(applicationIndex, false); else window.clearTimeout(autoTimer); }, { threshold: .35 }).observe(applicationsCarousel);
+      } else { autoVisible = true; scheduleAuto(); }
       var formModal = document.getElementById('formModal'); var modalClose = document.getElementById('modalClose'); var lastFocus = null;
       function openForm() { lastFocus = document.activeElement; formModal.classList.add('open'); formModal.setAttribute('aria-hidden','false'); document.body.classList.add('modal-open'); window.setTimeout(function(){modalClose.focus();},30); }
       function closeForm() { formModal.classList.remove('open'); formModal.setAttribute('aria-hidden','true'); document.body.classList.remove('modal-open'); if (lastFocus) lastFocus.focus(); }
