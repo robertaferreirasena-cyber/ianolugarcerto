@@ -1,0 +1,41 @@
+# IA no lugar certo | Roberta Sena
+
+> Você não precisa virar especialista em IA. Você precisa de IA trabalhando no seu negócio, no lugar certo: vender, atender, produzir e escalar sem tudo depender da dona.
+
+Roberta Sena implementa inteligência artificial dentro da operação de empresas reais: diagnóstico do gargalo, agentes de IA, fluxos de atendimento e vendas, CRM sob medida e organização. O ponto de partida é sempre o problema da operação, nunca a ferramenta.
+
+- Site: https://ianolugarcerto.vercel.app/
+- Diagnóstico: gratuito, via aplicação no site (cerca de 4 minutos)
+- Contato: https://wa.me/5551997980507
+
+## Para quem é
+
+Lojas, mentorias, clínicas, prestadores de serviço e equipes. Negócios que já operam, têm um problema claro (atendimento, vendas, conteúdo ou organização) e querem ganhar capacidade sem contratar mais gente.
+
+## O que ela implementa
+
+- **Atendimento:** agentes que recebem, qualificam e organizam conversas no WhatsApp e Direct, com triagem e encaminhamento humano no momento certo.
+- **Vendas:** qualificação de leads, follow-up, retomadas e próximos passos visíveis no CRM.
+- **Conteúdo:** pesquisa, planejamento e produção com a voz da marca.
+- **Organização:** demandas, documentos e etapas dentro de um fluxo claro.
+- **Agentes de IA:** assistentes treinados para um gargalo específico do negócio.
+- **CRM sob medida:** informação comercial organizada para a equipe agir.
+
+## Método
+
+1. Diagnóstico gratuito identifica o gargalo prioritário da operação.
+2. A solução nasce do contexto: agentes, fluxos e sistemas desenhados para a rotina real.
+3. IA com supervisão: o repetitivo ganha velocidade, a decisão importante continua humana.
+
+## Perguntas frequentes
+
+- **O diagnóstico é gratuito?** Sim. A aplicação ajuda a entender se existe aderência. Se houver, a conversa de diagnóstico aprofunda o cenário antes de qualquer proposta.
+- **Preciso saber qual ferramenta quero?** Não. O ponto de partida é o gargalo da operação. A ferramenta só entra depois.
+- **Quanto custa uma implementação?** Depende do escopo, das integrações e da complexidade. O investimento só é apresentado depois do diagnóstico.
+- **É só para empresas grandes?** Não. Faz sentido para negócios que já operam, têm um problema claro e querem ganhar capacidade.
+- **Aplicar garante uma reunião?** Não. Cada aplicação passa por triagem para verificar momento, prioridade e capacidade de implementação.
+- **A IA substitui minha equipe?** O objetivo é assumir o repetitivo, organizar contexto e ampliar a capacidade da equipe. Decisões importantes continuam com pessoas.
+
+## Conceito central
+
+"IA no lugar certo" significa: nada de IA solta, ferramenta por moda ou automação sem estratégia. A IA entra onde existe gargalo real e mensurável na operação.
