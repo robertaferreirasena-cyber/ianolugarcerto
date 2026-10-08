@@ -24,3 +24,6 @@ User-agent: Meta-WebIndexer
 Allow: /
 
 Sitemap: https://ianolugarcerto.vercel.app/sitemap.xml
+
+# Sinais de uso de conteúdo por IA (Content Signals)
+Content-Signal: ai-train=no, search=yes, ai-input=yes
